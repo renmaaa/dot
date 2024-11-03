@@ -1,34 +1,36 @@
 <?php
 session_start();
-require_once 'core/dbConfig.php'; 
+require_once 'core/dbConfig.php';
 require_once 'core/models.php';
 
-if(!isset($_SESSION['user_id']) || (time() - $_SESSION['last_activity'] > 1800)) {
+if (!isset($_SESSION['user_id']) || (time() - $_SESSION['last_activity'] > 1800)) {
     session_destroy();
     header("Location: login.php");
     exit();
 }
 $_SESSION['last_activity'] = time();
 
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Orders</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <a href="index.php">Return to home</a>
-    
-    <?php 
-    $book = getAllInfoByBookID($pdo, $_GET['book_id']); 
+
+    <?php
+    $book = getAllInfoByBookID($pdo, $_GET['book_id']);
     $orders = getOrdersByBook($pdo, $_GET['book_id']);
     ?>
-    
+
     <h1>Orders for: <?php echo $book['title']; ?></h1>
-    
+
     <!-- Orders Table -->
     <table style="width:100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
@@ -65,16 +67,16 @@ $_SESSION['last_activity'] = time();
             <?php endif; ?>
         </tbody>
     </table>
-    
+
     <!-- Add New Order Form -->
     <h1>Add New Order</h1>
     <form action="core/handleForms.php?book_id=<?php echo $_GET['book_id']; ?>" method="POST">
         <p>
-            <label for="customerName">Your Name</label> 
+            <label for="customerName">Your Name</label>
             <input type="text" name="customerName" required>
         </p>
         <p>
-            <label for="customerEmail">Your Email</label> 
+            <label for="customerEmail">Your Email</label>
             <input type="email" name="customerEmail" required>
         </p>
         <p>
@@ -90,4 +92,5 @@ $_SESSION['last_activity'] = time();
         <input type="submit" name="insertNewOrderBtn" value="Place Order">
     </form>
 </body>
+
 </html>

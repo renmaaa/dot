@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
@@ -9,14 +9,16 @@ if(isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <?php if(isset($_GET['error'])): ?>
+        <?php if (isset($_GET['error'])): ?>
             <p class="error"><?php echo htmlspecialchars($_GET['error']); ?></p>
         <?php endif; ?>
         <form method="POST" action="core/auth.php">
@@ -33,4 +35,5 @@ if(isset($_SESSION['user_id'])) {
         <p>Don't have an account? <a href="register.php">Register here</a></p>
     </div>
 </body>
+
 </html>

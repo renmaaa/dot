@@ -9,16 +9,18 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookstore</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav style="background-color: #333; padding: 1em; margin-bottom: 20px;">
-        <?php if($isLoggedIn): ?>
+        <?php if ($isLoggedIn): ?>
             <!-- Show these links when user is logged in -->
             <span style="color: white;">Welcome, <?php echo htmlspecialchars($_SESSION['username'] ?? 'User'); ?>!</span>
             <a href="logout.php" style="color: white; float: right; margin-left: 20px;">Logout</a>
@@ -30,11 +32,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </nav>
 
     <h1>Welcome To Our Bookstore!</h1>
+    <?php echo $_SESSION['user_id']; ?>
 
-    <?php if($isLoggedIn): ?>
+    <?php if ($isLoggedIn): ?>
         <?php $getAllBooks = getAllBooks($pdo); ?>
         <div class="books-container">
-            <?php if($getAllBooks): ?>
+            <?php if ($getAllBooks): ?>
                 <?php foreach ($getAllBooks as $row): ?>
                     <div class="book-card">
                         <h3>Title: <?php echo htmlspecialchars($row['title']); ?></h3>
@@ -58,4 +61,5 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
     <?php endif; ?>
 </body>
+
 </html>
